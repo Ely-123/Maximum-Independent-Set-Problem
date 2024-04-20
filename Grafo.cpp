@@ -6,7 +6,7 @@ using namespace std;
 class Grafo
 {
 private:
-    vector<Vertice> *matriz;
+    vector<Vertice>   *matriz;
 
 public:
     Grafo(/* args */);
