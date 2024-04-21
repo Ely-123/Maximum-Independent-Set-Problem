@@ -16,6 +16,8 @@ public:
     Grafo(Conjunto<int>, int **);
     ~Grafo();
     void Dibujar();
+    vector<Conjunto<int>> Ciclos();
+    Conjunto<int> rProfundidad(int, int, bool *, Conjunto<int>);
 };
 
 Grafo::Grafo(Conjunto<int> e, int **m)
@@ -65,28 +67,111 @@ void Grafo::Dibujar()
 
     system("dot -Tpng grafo.dot -o grafo.png");
     system("rm grafo.dot");
-    cout<<"grafo creado con exito"<<endl;
+    cout << "grafo creado con exito" << endl;
 }
 
+/**
+ * Busca ciclos en un grafo
+ */
+vector<Conjunto<int>> Grafo::Ciclos()
+{
+
+    vector<Conjunto<int>> ciclos;
+    bool *visited = new bool[elementos.getCard()];
+
+    for (int i = 0; i < elementos.getCard(); i++)
+    {
+
+        visited[i] = false;
+    }
+
+    for (int i = 0; i < elementos.getCard(); i++)
+    {
+
+        if (!visited[i])
+        {
+            Conjunto<int> ciclo;
+            visited[i] = true;
+            rProfundidad(-1, i, visited, ciclo);
+            ciclos.push_back(ciclo);
+        }
+    }
+
+    for (int i = 0; i < ciclos.size(); i++)
+    {
+        ciclos.at(i).print();
+    }
+    return ciclos;
+}
+
+Conjunto<int> Grafo::rProfundidad(int padre, int hijo, bool *visited, Conjunto<int> c)
+{
+
+    c.add(elementos.at(hijo));
+    if (padre < elementos.getCard())
+    {
+
+        for (int i = 0; i < elementos.getCard(); i++)
+        {
+            // buscamos en sus hijos
+            if (matA[i][hijo])
+            {
+                // verificamos si esta visitado
+                if (visited[i])
+                {
+                    // si el elemento visitado es distinto del padre
+                    if (i != padre && padre != -1)
+                    {
+
+                        c.add(elementos.at(i));
+                        c.remove(i - 1);
+                        return c;
+                    }
+                }
+                else
+                {
+                    visited[i] = true;
+                    rProfundidad(hijo, i, visited, c);
+                    if (c.getCard() != 0)
+                        return c;
+                }
+            }
+        }
+    }
+
+    return *(new Conjunto<int>);
+};
 int main()
 {
     Conjunto<int> c1;
     c1.add(1);
     c1.add(2);
     c1.add(3);
-    int m[3][3] = {{0, 1, 1}, {1, 0, 0}, {1, 0, 0}};
+    c1.add(4);
+    c1.add(5);
+    c1.add(6);
+    c1.add(7);
+    int m[c1.getCard()][c1.getCard()] = {
+        {0, 1, 0, 0, 1, 0, 0},
+        {1, 0, 1, 1, 0, 0, 0},
+        {0, 1, 0, 1, 0, 0, 0},
+        {0, 1, 1, 0, 0, 0, 0},
+        {1, 0, 0, 0, 0, 1, 1},
+        {0, 0, 0, 0, 1, 0, 1},
+        {0, 0, 0, 0, 1, 1, 0}};
 
     // Definir un puntero a puntero de enteros
-    int **matriz_convertida = new int *[3];
+    int **matriz_convertida = new int *[c1.getCard()];
 
     // Iterar sobre cada fila de la matriz
-    for (int i = 0; i < 3; ++i)
+    for (int i = 0; i < c1.getCard(); ++i)
     {
         // Asignar la dirección de cada fila a la matriz convertida
         matriz_convertida[i] = m[i];
     }
     Grafo g(c1, matriz_convertida);
 
-    g.Dibujar();
+    g.Ciclos();
+    // g.Dibujar();
     return 0;
 }
