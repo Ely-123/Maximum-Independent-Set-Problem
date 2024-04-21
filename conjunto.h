@@ -17,8 +17,9 @@ public:
     vector<T> *getElementos();
     bool search(T);
     void add(T);
-    void remove();
+    void remove(int );
     void print();
+    T at(int);
     Conjunto<T> Union(Conjunto);
     Conjunto<T> Intersection(Conjunto);
 };
