@@ -90,27 +90,16 @@ T Conjunto<T>::at(int i) { return elementos->at(i); }
 template <typename T>
 void Conjunto<T>::remove(int i)
 {
-   if (i >= 0 && i < elementos->size()) {
+    if (i >= 0 && i < elementos->size())
+    {
         elementos->erase(elementos->begin() + i);
     }
 }
 
-/*
-    int main(int argc, char const *argv[])
-    {
-        Conjunto<int> c1;
-        c1.add(1);
-        c1.add(2);
-        c1.add(3);
-        c1.add(4);
+template <typename T>
+void Conjunto<T>::clear()
+{
+    for (int i = 0; i < elementos->size(); i++)
+        elementos->erase(elementos->begin() + i);
 
-        Conjunto<int> c2;
-        c2.add(4);
-        c2.add(6);
-        c2.add(7);
-        c2.add(8);
-
-        c1.Intersection(c2).print();
-        return 0;
-    }
-*/
+}
