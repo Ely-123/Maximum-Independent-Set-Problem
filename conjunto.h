@@ -22,6 +22,7 @@ public:
     T at(int);
     Conjunto<T> Union(Conjunto);
     Conjunto<T> Intersection(Conjunto);
+    void clear();
 };
 
 #include "Conjunto.cpp"
