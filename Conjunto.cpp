@@ -61,6 +61,9 @@ void Conjunto<T>::print()
 
 template <typename T>
 
+/**
+ * Devuelve la union del conjunto acutal con el conjunto C
+*/
 Conjunto<T> Conjunto<T>::Union(Conjunto c)
 {
     Conjunto<T> newC(elementos);
@@ -73,6 +76,9 @@ Conjunto<T> Conjunto<T>::Union(Conjunto c)
 
 template <typename T>
 
+/*
+Devuelve la interseccion del conjunto actual con el conjunto C
+*/
 Conjunto<T> Conjunto<T>::Intersection(Conjunto c)
 {
     Conjunto<T> newC;
@@ -85,6 +91,10 @@ Conjunto<T> Conjunto<T>::Intersection(Conjunto c)
 }
 
 template <typename T>
+
+/*
+Retorna un elemento en la posicino i
+*/
 T Conjunto<T>::at(int i) { return elementos->at(i); }
 
 template <typename T>
@@ -97,6 +107,9 @@ void Conjunto<T>::remove(int i)
 }
 
 template <typename T>
+/*
+Borra todos los elementos de un conjunto
+*/
 void Conjunto<T>::clear()
 {
     for (int i = 0; i < elementos->size(); i++)
