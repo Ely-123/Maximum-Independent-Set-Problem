@@ -3,55 +3,22 @@
 #include <map>
 #include <vector>
 #include "conjunto.h"
-
+#include "grafo.h"
 using namespace std;
 
-/**
- * Crea un grafo a partir de un conjunto de aristas.
- *
- * Toma un conjunto de arreglos de enteros de tamaño 2 representando aristas
- * y construye un grafo no dirigido a partir de estas aristas. Cada vértice del grafo se
- * representa como una clave en el mapa, y los valores asociados son vectores que contienen
- * los vértices adyacentes a cada vértice.
- *
- * @param E Conjunto de aristas representadas como arreglos de enteros de tamaño 2.
- * @return Mapa donde las claves son los vértices del grafo y los valores son vectores
- *         que contienen los vértices adyacentes a cada vértice.
- */
-map<int, vector<int>> Grafo(Conjunto<array<int, 2>> E)
-{
-    map<int, vector<int>> grafo;
-    for (int i = 0; i < E.getCard(); i++)
-    {
-        int v1 = E.at(i)[0];
-        int v2 = E.at(i)[1];
-        if (grafo.count(v1) == 0)
-        {
-            grafo[v1] = vector<int>();
-        }
-        if (grafo.count(v2) == 0)
-        {
-            grafo[v2] = vector<int>();
-        }
-        grafo[v1].push_back(v2);
-        grafo[v2].push_back(v1);
-    }
-
-    return grafo;
-};
-Conjunto<int> MIS(map<int, vector<int>> graph)
+Conjunto<int> MIS(Grafo graph)
 {
     // Caso base: el grafo dado no tiene nodos
-    if (graph.size() == 0)
+    if (graph.getSize() == 0)
     {
         return Conjunto<int>();
     }
 
     // Caso base: el grafo tiene un nodo
-    if (graph.size() == 1)
+    if (graph.getSize() == 1)
     {
         Conjunto<int> v;
-        for (auto const &element : graph)
+        for (auto const &element : *(graph.getAristas()))
         {
             v.add(element.first);
         }
@@ -59,16 +26,16 @@ Conjunto<int> MIS(map<int, vector<int>> graph)
     }
 
     // Se selecciona el primer vertice
-    int vCurrent = graph.begin()->first;
+    int vCurrent = graph.getAristas()->begin()->first;
 
     /**
      * Caso 1 - Se eliminar el vértice seleccionado
     del Conjunto Máximo
     */
-    map<int, vector<int>> graph2(graph);
+    Grafo graph2(*graph.getAristas());
 
     // se elimina el vértice actual del gráfico
-    graph2.erase(vCurrent);
+    graph2.getAristas()->erase(vCurrent);
 
     /*
 
@@ -83,12 +50,12 @@ Conjunto<int> MIS(map<int, vector<int>> graph)
 
     Recorre sus vecinos (nodos adyacentes)
     */
-    for (auto v : graph.at(vCurrent))
+    for (auto v : graph.getAristas()->at(vCurrent))
     {
         // Elimina el vecino del subgrafo actual(m
-        if (graph2.count(v))
+        if (graph2.getAristas()->count(v))
         {
-            graph2.erase(v);
+            graph2.getAristas()->erase(v);
         }
     }
 
@@ -115,21 +82,19 @@ Conjunto<int> MIS(map<int, vector<int>> graph)
 
 int main()
 {
-    int V = 12;
 
     // Aristas del grafo
     Conjunto<array<int, 2>> E;
 
-    E.add({1, 2});
-    E.add({2, 3});
-    E.add({3, 4});
-    E.add({4, 1});
+    E.add({1});
 
-     map<int, vector<int>> g1 = Grafo(E);
 
+
+    Grafo g1(E);
     Conjunto<int> CIM = MIS(g1);
 
-   CIM.print();
+    CIM.print();
+    g1.dibujar();
 
     return 0;
 }
