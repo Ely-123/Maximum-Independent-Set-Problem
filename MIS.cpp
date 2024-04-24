@@ -6,19 +6,33 @@
 #include "grafo.h"
 using namespace std;
 
-Conjunto<int> MIS(Grafo graph)
+/**
+ * @brief Encuentra un Conjunto Independiente Maximal (MIS) en un grafo no dirigido.
+ * 
+ * @param grafo El grafo en el que se buscará el MIS.
+ * @return Conjunto<int> El Conjunto Independiente Maximal encontrado.
+ * 
+ * Esta función utiliza un algoritmo de búsqueda exhaustiva (brute force) con backtracking para encontrar un MIS en un grafo.
+ * 
+ * El Conjunto Independiente Maximal (MIS) es un conjunto de vértices en un grafo en el que ningún par de vértices adyacentes está en el conjunto.
+ * 
+ * @note La función asume que el grafo es representado por un objeto de tipo Grafo que tiene un método getSize() que devuelve el número de nodos en el grafo, 
+ *       y un método getAristas() que devuelve un puntero a un mapa que contiene los vértices y sus vecinos.
+ *       Además, el tipo Conjunto<int> se utiliza para representar un conjunto de enteros y se asume que tiene métodos como add(), getCard() y print().
+ */
+Conjunto<int> MIS(Grafo grafo)
 {
     // Caso base: el grafo dado no tiene nodos
-    if (graph.getSize() == 0)
+    if (grafo.getSize() == 0)
     {
         return Conjunto<int>();
     }
 
     // Caso base: el grafo tiene un nodo
-    if (graph.getSize() == 1)
+    if (grafo.getSize() == 1)
     {
         Conjunto<int> v;
-        for (auto const &element : *(graph.getAristas()))
+        for (auto const &element : *(grafo.getAristas()))
         {
             v.add(element.first);
         }
@@ -26,23 +40,23 @@ Conjunto<int> MIS(Grafo graph)
     }
 
     // Se selecciona el primer vertice
-    int vCurrent = graph.getAristas()->begin()->first;
+    int vCurrent = grafo.getAristas()->begin()->first;
 
     /**
      * Caso 1 - Se eliminar el vértice seleccionado
     del Conjunto Máximo
     */
-    Grafo graph2(*graph.getAristas());
+    Grafo grafo2(*grafo.getAristas());
 
     // se elimina el vértice actual del gráfico
-    graph2.getAristas()->erase(vCurrent);
+    grafo2.getAristas()->erase(vCurrent);
 
     /*
 
     Llamada recursiva: obtiene el conjunto máximo,
      suponiendo que el vértice actual no esté seleccionado/*
     */
-    Conjunto<int> res1 = MIS(graph2);
+    Conjunto<int> res1 = MIS(grafo2);
 
     /*
      Caso 2 - Proceder considerando el vértice seleccionado
@@ -50,12 +64,12 @@ Conjunto<int> MIS(Grafo graph)
 
     Recorre sus vecinos (nodos adyacentes)
     */
-    for (auto v : graph.getAristas()->at(vCurrent))
+    for (auto v : grafo.getAristas()->at(vCurrent))
     {
         // Elimina el vecino del subgrafo actual(m
-        if (graph2.getAristas()->count(v))
+        if (grafo2.getAristas()->count(v))
         {
-            graph2.getAristas()->erase(v);
+            grafo2.getAristas()->erase(v);
         }
     }
 
@@ -67,7 +81,7 @@ Conjunto<int> MIS(Grafo graph)
 
     Conjunto<int> res2;
     res2.add(vCurrent);
-    Conjunto<int> res2Sub = MIS(graph2);
+    Conjunto<int> res2Sub = MIS(grafo2);
     res2.getElementos()->insert(res2.getElementos()->end(), res2Sub.getElementos()->begin(), res2Sub.getElementos()->end());
 
     // See retorna el subconjunto mas grande
