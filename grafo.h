@@ -11,17 +11,18 @@ using namespace std;
 class Grafo
 {
 private:
-    int **matA;
+   
 
-    map<int, vector<int>> E;
+    map<int, vector<int>>* E;
 
 public:
     Grafo(Conjunto<array<int, 2>> );
-    Grafo(map<int, vector<int> >);
+    Grafo(map<int, vector<int>> );
     ~Grafo();
     void Dibujar();
-    map<int, vector<int>> getAristas();
+    map<int, vector<int>>* getAristas();
     int getSize();
+    void dibujar();
 };
 #include "Grafo.cpp"
 #endif
