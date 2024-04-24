@@ -8,15 +8,15 @@ using namespace std;
 
 /**
  * @brief Encuentra un Conjunto Independiente Maximal (MIS) en un grafo no dirigido.
- * 
+ *
  * @param grafo El grafo en el que se buscará el MIS.
  * @return Conjunto<int> El Conjunto Independiente Maximal encontrado.
- * 
+ *
  * Esta función utiliza un algoritmo de búsqueda exhaustiva (brute force) con backtracking para encontrar un MIS en un grafo.
- * 
+ *
  * El Conjunto Independiente Maximal (MIS) es un conjunto de vértices en un grafo en el que ningún par de vértices adyacentes está en el conjunto.
- * 
- * @note La función asume que el grafo es representado por un objeto de tipo Grafo que tiene un método getSize() que devuelve el número de nodos en el grafo, 
+ *
+ * @note La función asume que el grafo es representado por un objeto de tipo Grafo que tiene un método getSize() que devuelve el número de nodos en el grafo,
  *       y un método getAristas() que devuelve un puntero a un mapa que contiene los vértices y sus vecinos.
  *       Además, el tipo Conjunto<int> se utiliza para representar un conjunto de enteros y se asume que tiene métodos como add(), getCard() y print().
  */
@@ -82,7 +82,8 @@ Conjunto<int> MIS(Grafo grafo)
     Conjunto<int> res2;
     res2.add(vCurrent);
     Conjunto<int> res2Sub = MIS(grafo2);
-    res2.getElementos()->insert(res2.getElementos()->end(), res2Sub.getElementos()->begin(), res2Sub.getElementos()->end());
+    // res2.getElementos()->insert(res2.getElementos()->end(), res2Sub.getElementos()->begin(), res2Sub.getElementos()->end());
+    res2 = res2.Union(res2Sub);
 
     // See retorna el subconjunto mas grande
     if (res1.getCard() > res2.getCard())
@@ -100,8 +101,7 @@ int main()
     // Aristas del grafo
     Conjunto<array<int, 2>> E;
 
-    E.add({1});
-
+    E.add({1, 2});
 
 
     Grafo g1(E);
