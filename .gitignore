@@ -1,3 +1,5 @@
 .vscode
 *.png
 *.dot
+**/__pycache__/
+**/media/
