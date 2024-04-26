@@ -67,41 +67,67 @@ int Grafo::getSize()
 
 /**
  * @brief Método de la clase Grafo que genera un archivo de imagen representando el grafo utilizando Graphviz.
- * 
+ *
  * Este método genera un archivo de imagen que representa visualmente el grafo utilizando el software Graphviz. El grafo se representa como un gráfico no dirigido donde los vértices están conectados por aristas.
- * 
+ *
  * @note Se asume que la clase Grafo tiene un miembro de datos E de tipo puntero a un mapa de enteros a vectores de enteros, que representa la estructura del grafo donde las claves son los vértices y los valores son vectores que contienen los vecinos de cada vértice.
  *       Además, se asume que la función getSize() devuelve el número de vértices en el grafo.
  */
-void Grafo::dibujar()
+void Grafo::dibujar(Conjunto<int> MIS, int n)
 {
-    bool *visitados = new bool[getSize()];
-    string nombreArchivo = "grafo.dot";
-    ofstream archivo(nombreArchivo);
+    string nombreArchivo = to_string(n);
+    std::map<int, bool> *visitados = new std::map<int, bool>;
+    for (auto v : *E)
+        (*visitados)[v.first] = false;
+
+    std::ofstream archivo(nombreArchivo);
     if (!archivo.is_open())
     {
-        cout << "No se pudo abrir el archivo." << endl;
+        std::cout << "No se pudo abrir el archivo." << std::endl;
         return;
     }
 
-    archivo << "graph Grafo {" << endl;
+    archivo << "graph Grafo {" << std::endl;
     for (auto const &par : *E)
     {
         int v1 = par.first;
-        if (!visitados[v1])
+        if (!(*visitados)[v1])
         {
             for (auto const &v2 : par.second)
             {
-                archivo << "    " << v1 << " -- " << v2 << ";" << endl;
-                visitados[v2] = true;
+                if (MIS.search(v2))
+                {
+                    archivo << "    " << v2;
+                    archivo << " [color=red, style=filled, fillcolor=yellow]"
+                            << ";" << std::endl;
+                }
+                if (!(*visitados)[v2])
+                {
+                    if (MIS.search(v2))
+                    {
+                        archivo << "    " << v2;
+                        archivo << " [color=red, style=filled, fillcolor=yellow]"
+                                << ";" << std::endl;
+                    }
+                    archivo << "    " << v1 << " -- " << v2;
+                    archivo << ";" << std::endl;
+                }
             }
+            (*visitados)[v1] = true;
         }
     }
-    archivo << "}" << endl;
+    archivo << "}" << std::endl;
 
     archivo.close();
 
-    system("dot -Tpng grafo.dot -o grafo.png");
-    system("rm grafo.dot");
-    cout << "grafo creado con exito" << endl;
+    string comando = "dot -Tpng " + nombreArchivo + " -o " + nombreArchivo + ".png";
+    system(comando.c_str());
+    #ifdef _WIN32
+        string remove="del "+ nombreArchivo;
+        system(remove.c_str());
+    #else
+        string remove="rm "+ nombreArchivo;
+        system(remove.c_str());
+    #endif
+    cout << "Grafo creado con éxito en " << nombreArchivo << ".png" << std::endl;
 }
