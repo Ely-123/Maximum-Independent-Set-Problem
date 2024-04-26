@@ -19,10 +19,10 @@ public:
     Grafo(Conjunto<array<int, 2>> );
     Grafo(map<int, vector<int>> );
     ~Grafo();
-    void Dibujar();
+  
     map<int, vector<int>>* getAristas();
     int getSize();
-    void dibujar();
+    void dibujar(Conjunto<int>,int );
 };
 #include "Grafo.cpp"
 #endif
