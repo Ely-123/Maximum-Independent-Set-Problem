@@ -54,12 +54,12 @@ Conjunto<int> MIS(Grafo grafo)
     /*
 
     Llamada recursiva: obtiene el conjunto máximo,
-     suponiendo que el vértice actual no esté seleccionado/*
+    suponiendo que el vértice actual no esté seleccionado/*
     */
     Conjunto<int> res1 = MIS(grafo2);
 
     /*
-     Caso 2 - Proceder considerando el vértice seleccionado
+    Caso 2 - Proceder considerando el vértice seleccionado
     como parte del conjunto máximo
 
     Recorre sus vecinos (nodos adyacentes)
@@ -88,8 +88,7 @@ Conjunto<int> MIS(Grafo grafo)
     // See retorna el subconjunto mas grande
     if (res1.getCard() > res2.getCard())
     {
-        res1.print();
-        res2.print();
+    
         return res1;
     }
     return res2;
@@ -102,13 +101,15 @@ int main()
     Conjunto<array<int, 2>> E;
 
     E.add({1, 2});
+    E.add({1, 3});
+    E.add({1, 8});
 
 
     Grafo g1(E);
     Conjunto<int> CIM = MIS(g1);
 
     CIM.print();
-    g1.dibujar();
+    g1.dibujar(CIM,0);
 
     return 0;
 }
