@@ -142,6 +142,11 @@ int main()
     E.add({2, 9});
     E.add({3,11});
     E.add({11,1});
+    E.add({11,15});
+    E.add({15,2});
+    E.add({18,1});
+    E.add({18,25});
+    E.add({9,25});
 
     Grafo g1(E);
     vector<Conjunto<int>> CIM = MIS(g1);
