@@ -132,21 +132,28 @@ int main()
     // Aristas del grafo
     Conjunto<array<int, 2>> E;
 
-    E.add({1, 2}); 
-    E.add({1, 3}); 
-    E.add({3, 4}); 
-    E.add({3, 5}); 
-    E.add({5, 6}); 
-    E.add({2, 7}); 
-    E.add({2, 3});
-    E.add({2, 9});
-    E.add({3,11});
-    E.add({11,1});
-    E.add({11,15});
-    E.add({15,2});
-    E.add({18,1});
-    E.add({18,25});
-    E.add({9,25});
+   E.add({1, 2});
+   E.add({2, 3});
+E.add({3, 4});
+E.add({4, 5});
+E.add({5, 6});
+E.add({6, 7});
+E.add({7, 8});
+E.add({8, 9});
+E.add({9, 10});
+E.add({10, 11});
+E.add({11, 12});
+E.add({13, 14});
+E.add({15, 16});
+E.add({17, 18});
+E.add({19, 20});
+E.add({21, 22});
+E.add({23, 24});
+E.add({25, 26});
+E.add({27, 28});
+
+  
+   
 
     Grafo g1(E);
     vector<Conjunto<int>> CIM = MIS(g1);
