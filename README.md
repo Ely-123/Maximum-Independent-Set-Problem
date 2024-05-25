@@ -1,13 +1,25 @@
 # Maximum-Independent-Set-Problem
 Problema del conjunto independiente máximo (Maximum Independent
-Set Problem): Dado un grafo no dirigido, encontrar el conjunto más grande
+Set Problem): Dado un grafo no dirigido, permite encontrar el conjunto más grande
 de vértices tal que ningún par de vértices esté conectado por una arista.
 
-#Conjunto
-Clase correspondiente a la defincion de un conjunto ejemplo A={1,2,3,4}
+Ejemplo:
+Dado el grafo $G=(E,V)$ denotado por:
 
-#Grafo
-Clase corerspondiente a la definicion de un grafo 
+$E=$ { ${1,2,3,4,5}$ } 
 
-#MIS archivo correspondiente al conjunto independiente máximo (Maximum Independent
-Set Problem)
+$V=$ { ${(1, 2), (2, 3), (3, 1), (4, 2), (4, 3), (5, 1), (5, 2)}$ }
+
+$MIS(G)=$ { { $4,5$ },{ $3,5$ },{ $1,4$ } }
+
+{ $4,5$ }
+
+![Conjunto1](https://github.com/JocsanRueda/Maximum-Independent-Set-Problem/blob/main/0.png)
+
+{ $3,5$ }
+
+![Conjunto1](https://github.com/JocsanRueda/Maximum-Independent-Set-Problem/blob/main/0.png)
+
+{ $1,4$ }
+
+![Conjunto1](https://github.com/JocsanRueda/Maximum-Independent-Set-Problem/blob/main/0.png)
