@@ -18,8 +18,8 @@ $MIS(G)=$ { { $4,5$ },{ $3,5$ },{ $1,4$ } }
 
 { $3,5$ }
 
-![Conjunto1](https://github.com/JocsanRueda/Maximum-Independent-Set-Problem/blob/main/0.png)
+![Conjunto1](https://github.com/JocsanRueda/Maximum-Independent-Set-Problem/blob/main/1.png)
 
 { $1,4$ }
 
-![Conjunto1](https://github.com/JocsanRueda/Maximum-Independent-Set-Problem/blob/main/0.png)
+![Conjunto1](https://github.com/JocsanRueda/Maximum-Independent-Set-Problem/blob/main/2.png)
